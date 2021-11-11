@@ -5,5 +5,6 @@ const postCtrl = require('../controllers/post');
 
 router.get('/', postCtrl.getAllPosts);
 router.get('/:id', postCtrl.getOnePost);
+router.get('/user/post', postCtrl.getUserPosts);
 
 module.exports = router;

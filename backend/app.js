@@ -6,6 +6,7 @@ const mysql = require('./configs/database')
 
 const postRoutes = require('./routes/post');
 const userRoutes = require('./routes/user')
+const profilRoutes = require('./routes/profil')
 
 const app = express();
 
@@ -26,5 +27,6 @@ app.use(cookieParser())
 
 app.use('/api/post', postRoutes)
 app.use('/api/auth', userRoutes)
+app.use('/api/profil', profilRoutes)
 
 module.exports = app;

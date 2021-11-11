@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { ApiErrors, apiFetch } from './utils/api'
+import { ApiErrors, apiFetch } from '../utils/api'
 
-export function LoginForm ({ onConnect }) {
+export function SignupForm ({ onConnect }) {
 
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -14,7 +14,7 @@ export function LoginForm ({ onConnect }) {
         const data = {}
         new FormData(e.target).forEach((value, key) => data[key] = value)
         try {
-            const user = await apiFetch('/api/auth/login', {
+            const user = await apiFetch('/api/auth/signup', {
                 method: 'POST',
                 body: JSON.stringify(data),
             })
@@ -30,11 +30,15 @@ export function LoginForm ({ onConnect }) {
     }
 
     return <form className="container mt-4" onSubmit={handleSubmit}>
-        <h2>Se connecter</h2>
+        <h2>S'inscrire</h2>
         
         <div className="from-group">
             <label htmlFor="email">Adresse mail</label>
             <input type="email" name="email" id="email" className="form-control" required/>
+        </div>
+        <div className="from-group mt-3">
+            <label htmlFor="username">Nom d'utilisateur</label>
+            <input type="text" name="username" id="username" className="form-control" required/>
         </div>
         <div className="from-group mt-3">
             <label htmlFor="password">Mot de passe</label>
@@ -45,7 +49,7 @@ export function LoginForm ({ onConnect }) {
     </form>
 }
 
-LoginForm.propTypes = {
+SignupForm.propTypes = {
     onConnect: PropTypes.func.isRequired
 }
 

@@ -1,5 +1,3 @@
-
-
 export class ApiErrors {
     constructor(errors) {
         this.errors = errors

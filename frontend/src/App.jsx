@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { LoginForm } from "./App/LoginForm"
+import { LoginSignup } from "./App/LoginSignup/LoginSignup"
 import { Site } from "./App/Site"
 import { apiFetch } from "./App/utils/api"
 
@@ -19,6 +19,6 @@ export default function App() {
   }
 
   return (
-    user ? <Site /> : <LoginForm onConnect={setUser} />
+    user ? <Site /> : <LoginSignup onConnect={setUser} />
   )
 }
