@@ -13,7 +13,7 @@ export function UserPosts ({ posts, onClick }) {
         {posts.map(post => <div className="col-md-4 mb-4" key={post.id}>
             <a href={`#post/${post.id}`} className="text-decoration-none" onClick={() => onClick(post)} >
                 <div className="card text-center bg-dark text-white">
-                    <img className="card-img" src={`http://localhost:3000/images/${post.imageUrl}`} alt="" />
+                    <img className="card-img" src={`http://localhost:3030/images/${post.imageUrl}`} alt="" />
                     <div className="card-body">
                         <div className="card-title">{post.title}</div>
                     </div>

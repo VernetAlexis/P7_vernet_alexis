@@ -17,6 +17,10 @@ export function LoginForm ({ onConnect }) {
             const user = await apiFetch('/api/auth/login', {
                 method: 'POST',
                 body: JSON.stringify(data),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
             })
             onConnect(user)
         } catch (e) {

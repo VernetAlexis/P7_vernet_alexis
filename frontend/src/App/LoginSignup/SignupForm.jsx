@@ -17,6 +17,10 @@ export function SignupForm ({ onConnect }) {
             const user = await apiFetch('/api/auth/signup', {
                 method: 'POST',
                 body: JSON.stringify(data),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
             })
             onConnect(user)
         } catch (e) {

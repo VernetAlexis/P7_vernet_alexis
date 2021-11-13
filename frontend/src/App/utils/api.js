@@ -7,10 +7,6 @@ export class ApiErrors {
 export async function apiFetch (endpoint, options = {}) {
     const response = await fetch('http://localhost:3030' + endpoint, {
         credentials: 'include',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
         ...options
     })
     if (response.status === 204) {

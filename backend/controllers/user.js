@@ -6,9 +6,7 @@ const bcrypt = require('bcrypt')
 exports.login = (req, res, next) => {
     const database = mysql.getDB()
     const email = req.body.email
-    console.log(req.body)
     database.query(`SELECT id, email, password, username FROM user WHERE email=?`, email, function (err, result) {
-        console.log(result)
         if (err) {
             return res.status(404).json({ errors: 'Utilisateur non trouvé' })
         }
@@ -21,7 +19,6 @@ exports.login = (req, res, next) => {
                     const token = jwt.sign( {id: result[0].id, username: result[0].username} , 'SECRET_TOKEN', {
                         expiresIn: '24h',
                     });
-                    console.log(jwt.verify(token, 'SECRET_TOKEN'))
                     res.cookie("session", token);
                     res.status(200).json({ message : 'Connecté' })
                 })

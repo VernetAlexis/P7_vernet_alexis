@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export function UserProfil ({ profil }) {
+export function UserProfil ({ profil, onDelete }) {
 
     if (profil === null) {
         return <div>
@@ -11,7 +11,7 @@ export function UserProfil ({ profil }) {
     
     return <form className="container row">
         <div className="col-6">
-            <img src="http://localhost:3000/images/goeland.jpg" alt="" className="img-fluid"/>
+            <img src="http://localhost:3000/images/pokemon.gif" alt="" className="img-fluid"/>
         </div>
         <div className="col-6">
             <h1>Profil</h1>
@@ -32,7 +32,7 @@ export function UserProfil ({ profil }) {
                 <input type="text" name="lastname" id="lastname" className="form-control" defaultValue={profil[0].lastname} />
             </div>
             <button className="btn btn-primary my-3">Modifier</button><br />
-            <button className="btn btn-danger">Supprimer mon compte</button>
+            <button className="btn btn-danger" onClick={() => onDelete(profil)}>Supprimer mon compte</button>
         </div>
     </form>
 }

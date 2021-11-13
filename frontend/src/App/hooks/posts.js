@@ -8,10 +8,15 @@ function reducer (state, action) {
             return { ...state }
         case 'FETCHING_POST':
             return { ...state, postId: action.payload.id }
+        case 'ADD_POST':
+            return { ...state, posts: [action.payload, ...state.posts] }
         case 'SET_POSTS':
             return { ...state, posts: action.payload }
         case 'SET_POST':
+            console.log(action.payload);
             return { ...state, posts: state.posts.map(p => p.id === action.payload.id ? action.payload : p) }
+        case 'DELETE_POST':
+            return { ...state, posts: state.posts.filter(p => p !== action.paylod) }
         default:
             throw new Error('Action inconnue' + action.type)
     }
@@ -42,6 +47,27 @@ export function usePosts() {
             dispatch ({ type: 'FETCHING_POST', payload: post })
             post = await apiFetch('/api/post/' + post.id)
             dispatch ({ type: 'SET_POST', payload: post })
+        },
+        createPost: async function (data) {
+            const post = await apiFetch('/api/post/', {
+                method: 'post',
+                body: data,
+
+            })
+            dispatch({ type: 'ADD_POST', payload: post })
+        },
+        deletePost: async function (post) {
+            await apiFetch('/api/post/' + post.id, {
+                method: 'delete'
+            })
+            dispatch ({ type: 'DELETE_POST', payload: post })
+        },
+        updatePost: async function (post, data) {
+            post = await apiFetch('/api/post/' + post.id, {
+                method: 'put',
+                body: data
+            })
+            dispatch({ type: 'SET_POST', payload: post })
         }
     }
 }

@@ -1,8 +1,9 @@
 const express = require('express')
 const router = express.Router()
 
-const userCtrl = require('../controllers/profil')
+const profilCtrl = require('../controllers/profil')
 
-router.get('/', userCtrl.getProfil)
+router.get('/', profilCtrl.getProfil)
+router.delete('/', profilCtrl.deleteProfil)
 
 module.exports = router

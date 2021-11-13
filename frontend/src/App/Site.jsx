@@ -3,6 +3,7 @@ import { usePosts } from './hooks/posts'
 import { useProfil } from './hooks/profil'
 import { AllPosts } from './Post/AllPost'
 import { OnePost } from './Post/OnePost'
+import { CreateNewPost } from './Post/PostForm'
 import { UserPosts } from './Post/UserPost'
 import { UserProfil } from './UserProfil/UserProfil'
 import { apiFetch } from './utils/api'
@@ -16,16 +17,37 @@ export function Site () {
         post,
         fetchAllPosts,
         fetchUserPosts,
-        fetchOnePost
+        fetchOnePost,
+        createPost,
+        deletePost,
+        updatePost
     } = usePosts()
     const {
         profil,
-        fetchProfil
+        fetchProfil,
+        deleteProfil
     } = useProfil()
+
+    const logout = async function () {
+        await apiFetch('/api/auth/logout', {
+            method: 'GET'
+        })
+        window.location.reload()
+    }
 
     function postRedirect (post) {
         fetchOnePost(post)
         setPage(`post/${post.id}`)
+    }
+
+    function onDeletePost (post) {
+        deletePost(post)
+        window.location.reload()
+    }
+
+    function onDeleteProfil (profil) {
+        deleteProfil(profil)
+        logout()
     }
 
     let content = null
@@ -35,9 +57,11 @@ export function Site () {
     } else if (page === 'userPost') {
         content = <UserPosts posts={posts} onClick={postRedirect} />
     } else if (page === 'myProfil') {
-        content = <UserProfil profil={profil} />
+        content = <UserProfil profil={profil} onDelete={onDeleteProfil}/>
+    } else if (page === 'createPost') {
+        content = <CreateNewPost onSubmit={createPost} />
     } else if (page === `post/${post.id}`) {
-        content = <OnePost post={post} />
+        content = <OnePost post={post} onDelete={onDeletePost} onUpdate={updatePost}/>
     } else {
         content = page
     }
@@ -53,14 +77,14 @@ export function Site () {
     }, [page])
 
     return <>
-        <NavBar currentPage={page} onClick={setPage}/>
+        <NavBar currentPage={page} onClick={setPage} onDisconnect={logout}/>
         <div className="container">
             {content}
         </div>
     </>
 }
 
-function NavBar ({ currentPage, onClick }) {
+function NavBar ({ currentPage, onClick, onDisconnect }) {
 
     const navClass = function (page) {
         let className = 'nav-link'
@@ -68,13 +92,6 @@ function NavBar ({ currentPage, onClick }) {
             className = className + ' active'
         }
         return className
-    }
-
-    const handleDisconnect = async function () {
-        await apiFetch('/api/auth/logout', {
-            method: 'GET'
-        })
-        window.location.reload()
     }
 
     return <nav className="navbar navbar-expand-sm navbar-dark bg-primary mb-4">
@@ -90,10 +107,10 @@ function NavBar ({ currentPage, onClick }) {
             <a href="#myProfil" className={navClass('myProfil')} onClick={() => onClick('myProfil')}>Mon Profil</a>
         </li>
     </ul>
-    <button  className="btn btn-outline-light me-3">
+    <button  className="btn btn-outline-light me-3" onClick={() => onClick('createPost')}>
         Créer un nouveau post
     </button>
-    <button  className="btn btn-danger btn-outline-light me-3 danger" onClick={handleDisconnect}>
+    <button  className="btn btn-danger btn-outline-light me-3 danger" onClick={onDisconnect}>
         Déconnexion
     </button>
 </nav>

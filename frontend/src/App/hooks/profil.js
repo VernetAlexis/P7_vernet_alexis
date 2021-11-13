@@ -8,6 +8,8 @@ function reducer (state, action) {
             return { ...state }
         case 'SET_PROFIL':
             return { ...state, profil: action.payload }
+        case 'DELETE_PROFIL':
+            return { ...state }
         default:
             throw new Error('Action inconnue' + action.type)
     }
@@ -25,6 +27,12 @@ export function useProfil() {
             dispatch({ type: 'FETCHING_PROFIL' })
             const profil = await apiFetch('/api/profil')
             dispatch({ type: 'SET_PROFIL', payload: profil })
+        },
+        deleteProfil: async function (profil) {
+            await apiFetch('/api/profil', {
+                method: 'delete'
+            })
+            dispatch ({ type: 'DELETE_PROFIL', payload: profil })
         }
     }
 }
