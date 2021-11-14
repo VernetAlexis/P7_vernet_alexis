@@ -7,6 +7,7 @@ const mysql = require('./configs/database')
 const postRoutes = require('./routes/post');
 const userRoutes = require('./routes/user')
 const profilRoutes = require('./routes/profil')
+const commentsRoutes = require('./routes/comments')
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cookieParser())
 
+app.use('/api/comments', commentsRoutes)
 app.use('/api/post', postRoutes)
 app.use('/api/auth', userRoutes)
 app.use('/api/profil', profilRoutes)

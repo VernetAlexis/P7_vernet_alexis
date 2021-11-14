@@ -13,7 +13,6 @@ function reducer (state, action) {
         case 'SET_POSTS':
             return { ...state, posts: action.payload }
         case 'SET_POST':
-            console.log(action.payload);
             return { ...state, posts: state.posts.map(p => p.id === action.payload.id ? action.payload : p) }
         case 'DELETE_POST':
             return { ...state, posts: state.posts.filter(p => p !== action.paylod) }
@@ -52,7 +51,6 @@ export function usePosts() {
             const post = await apiFetch('/api/post/', {
                 method: 'post',
                 body: data,
-
             })
             dispatch({ type: 'ADD_POST', payload: post })
         },

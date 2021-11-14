@@ -33,6 +33,13 @@ export function useProfil() {
                 method: 'delete'
             })
             dispatch ({ type: 'DELETE_PROFIL', payload: profil })
+        },
+        updateProfil: async function (profil, data) {
+            profil = await apiFetch('/api/profil/' + profil.id ,{
+                method: 'put',
+                body: data
+            })
+            dispatch ({ type: 'SET_PROFIL', payload: profil })
         }
     }
 }

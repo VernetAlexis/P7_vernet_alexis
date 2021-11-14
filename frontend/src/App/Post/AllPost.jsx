@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 
-export function AllPosts ({ posts, onClick, }) {
+export function AllPosts ({ posts, onClick }) {
 
     if (posts === null) {
         return <div>

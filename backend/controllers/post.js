@@ -112,7 +112,7 @@ exports.updatePost = (req, res, next) => {
     database.query(updatedPost, function (err, result) {
       if (err) {
         return res.status(400).json(err)
-      } else {  
+      } else {
         return res.status(200).json(result)
       }
     })

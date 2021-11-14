@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useComments } from './hooks/comments'
 import { usePosts } from './hooks/posts'
 import { useProfil } from './hooks/profil'
 import { AllPosts } from './Post/AllPost'
@@ -25,8 +26,16 @@ export function Site () {
     const {
         profil,
         fetchProfil,
-        deleteProfil
+        deleteProfil,
+        updateProfil
     } = useProfil()
+    const {
+        comments,
+        fetchPostComments,
+        createComment,
+        updateComment,
+        deleteComment
+    } = useComments()
 
     const logout = async function () {
         await apiFetch('/api/auth/logout', {
@@ -37,6 +46,7 @@ export function Site () {
 
     function postRedirect (post) {
         fetchOnePost(post)
+        fetchPostComments(post)
         setPage(`post/${post.id}`)
     }
 
@@ -57,11 +67,11 @@ export function Site () {
     } else if (page === 'userPost') {
         content = <UserPosts posts={posts} onClick={postRedirect} />
     } else if (page === 'myProfil') {
-        content = <UserProfil profil={profil} onDelete={onDeleteProfil}/>
+        content = <UserProfil profil={profil} onDelete={onDeleteProfil} onUpdate={updateProfil}/>
     } else if (page === 'createPost') {
         content = <CreateNewPost onSubmit={createPost} />
     } else if (page === `post/${post.id}`) {
-        content = <OnePost post={post} onDelete={onDeletePost} onUpdate={updatePost}/>
+        content = <OnePost post={post} onDelete={onDeletePost} onUpdate={updatePost} comments={comments} onSubmit={createComment} onUpdateComment={updateComment} onDeleteComment={deleteComment}/>
     } else {
         content = page
     }

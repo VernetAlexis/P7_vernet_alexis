@@ -21,7 +21,7 @@ function PostForm ({ onSubmit, post = {}, required }) {
             title: data.title,
             description: data.description
         }
-        let p = new FormData;
+        let p = new FormData
         p.append("post", JSON.stringify(post))
         p.append("image", data.image)
         console.log(p);

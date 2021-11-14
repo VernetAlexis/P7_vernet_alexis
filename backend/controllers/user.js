@@ -20,7 +20,7 @@ exports.login = (req, res, next) => {
                         expiresIn: '24h',
                     });
                     res.cookie("session", token);
-                    res.status(200).json({ message : 'Connecté' })
+                    res.status(200).json({ userId: result[0].id })
                 })
                 .catch(error => res.status(400).json({ error }))
         } else {

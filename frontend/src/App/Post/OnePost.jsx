@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { UpdatePost } from './PostForm'
+import { CommentsSection } from '../Comments/Comments'
 
-export function OnePost ({ post, onDelete, onUpdate }) {
+export function OnePost ({ post, onDelete, onUpdate, comments, onSubmit, onUpdateComment, onDeleteComment }) {
 
     const [editMode, setEditMode] = useState(false)
 
@@ -11,8 +12,12 @@ export function OnePost ({ post, onDelete, onUpdate }) {
         setEditMode(false)
     }
 
-    return editMode ? <UpdatePost onSubmit={handleUpdate} post={post} /> : 
+    return editMode ? <UpdatePost onSubmit={handleUpdate} post={post} /> : <>
     <PostDetail post={post} onDelete={onDelete} onClick={setEditMode} />
+    <div className="row">
+        <CommentsSection comments={comments} onSubmit={onSubmit} post={post} onUpdate={onUpdateComment} onDelete={onDeleteComment} />
+    </div>
+    </>
 }
 
 
@@ -23,7 +28,6 @@ function PostDetail ({ post, onDelete, onClick }) {
             LOADING !
         </div>
     }
-
     
     return <>
         <div className="row">
@@ -37,9 +41,6 @@ function PostDetail ({ post, onDelete, onClick }) {
                 <button className="btn btn-primary" onClick={() => onClick(true)}>Modifier</button><br />
                 <button className="btn btn-danger mt-4" onClick={() => onDelete(post)}>Supprimer</button>
             </div>
-        </div>
-        <div className="row">
-            <div>COMMENTS</div>
         </div>
     </>
 }
