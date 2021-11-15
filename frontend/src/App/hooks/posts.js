@@ -52,6 +52,7 @@ export function usePosts() {
                 method: 'post',
                 body: data,
             })
+            console.log(post);
             dispatch({ type: 'ADD_POST', payload: post })
         },
         deletePost: async function (post) {
@@ -65,7 +66,7 @@ export function usePosts() {
                 method: 'put',
                 body: data
             })
-            dispatch({ type: 'SET_POST', payload: post })
+            dispatch({ type: 'SET_POST', payload: post[0] })
         }
     }
 }

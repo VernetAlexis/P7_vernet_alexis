@@ -9,7 +9,7 @@ import { UserPosts } from './Post/UserPost'
 import { UserProfil } from './UserProfil/UserProfil'
 import { apiFetch } from './utils/api'
 
-export function Site () {
+export function Site ({ currentUser }) {
 
     const [page, setPage] = useState('allPost')
 
@@ -52,12 +52,17 @@ export function Site () {
 
     function onDeletePost (post) {
         deletePost(post)
-        window.location.reload()
+        setPage('allPost')
     }
 
     function onDeleteProfil (profil) {
         deleteProfil(profil)
         logout()
+    }
+
+    function onCreatePost (data) {
+        createPost(data)
+        setPage('allPost')
     }
 
     let content = null
@@ -69,9 +74,18 @@ export function Site () {
     } else if (page === 'myProfil') {
         content = <UserProfil profil={profil} onDelete={onDeleteProfil} onUpdate={updateProfil}/>
     } else if (page === 'createPost') {
-        content = <CreateNewPost onSubmit={createPost} />
+        content = <CreateNewPost onSubmit={onCreatePost} />
     } else if (page === `post/${post.id}`) {
-        content = <OnePost post={post} onDelete={onDeletePost} onUpdate={updatePost} comments={comments} onSubmit={createComment} onUpdateComment={updateComment} onDeleteComment={deleteComment}/>
+        content = <OnePost
+            post={post} 
+            onDelete={onDeletePost} 
+            onUpdate={updatePost} 
+            comments={comments} 
+            onSubmit={createComment} 
+            onUpdateComment={updateComment} 
+            onDeleteComment={deleteComment}
+            currentUser={currentUser}
+        />
     } else {
         content = page
     }
@@ -104,24 +118,35 @@ function NavBar ({ currentPage, onClick, onDisconnect }) {
         return className
     }
 
-    return <nav className="navbar navbar-expand-sm navbar-dark bg-primary mb-4">
-    <a href='#allPost' className="navbar-brand ms-4" onClick={() => onClick('allPost')}>Groupomania</a>
-    <ul className="navbar-nav me-auto">
-        <li className="nav-item">
-            <a href="#allPost" className={navClass('allPost')} onClick={() => onClick('allPost')}>Tous les Post</a>
-        </li>
-        <li className="nav-item">
-            <a href="#userPost" className={navClass('userPost')} onClick={() => onClick('userPost')}>Mes post</a>
-        </li>
-        <li className="nav-item">
-            <a href="#myProfil" className={navClass('myProfil')} onClick={() => onClick('myProfil')}>Mon Profil</a>
-        </li>
-    </ul>
-    <button  className="btn btn-outline-light me-3" onClick={() => onClick('createPost')}>
-        Créer un nouveau post
-    </button>
-    <button  className="btn btn-danger btn-outline-light me-3 danger" onClick={onDisconnect}>
-        Déconnexion
-    </button>
+
+
+    return <nav className="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+        <div className="container-fluid">
+            <a href='#allPost' className="navbar-brand ms-4" onClick={() => onClick('allPost')}>
+                <img src="http://localhost:3000/logo.png" alt="" height="30" />
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarToggler">
+                <ul className="navbar-nav me-auto">
+                    <li className="nav-item">
+                        <a href="#allPost" className={navClass('allPost')} onClick={() => onClick('allPost')}>Tous les Post</a>
+                    </li>
+                    <li className="nav-item">
+                        <a href="#userPost" className={navClass('userPost')} onClick={() => onClick('userPost')}>Mes post</a>
+                    </li>
+                    <li className="nav-item">
+                        <a href="#myProfil" className={navClass('myProfil')} onClick={() => onClick('myProfil')}>Mon Profil</a>
+                    </li>
+                </ul>
+                <button  className="btn btn-outline-light me-3" onClick={() => onClick('createPost')}>
+                    Créer un nouveau post
+                </button>
+                <button  className="btn btn-danger btn-outline-light me-3 danger" onClick={onDisconnect}>
+                    Déconnexion
+                </button>
+            </div>
+        </div>
 </nav>
 }

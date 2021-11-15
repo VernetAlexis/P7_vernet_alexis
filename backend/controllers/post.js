@@ -1,10 +1,11 @@
 const mysql = require('../configs/database')
 const jwt = require('jsonwebtoken')
 const fs = require('fs')
+require('dotenv').config()
 
 exports.getAllPosts = (req, res, next) => {
   const database = mysql.getDB()
-  database.query(`SELECT * FROM post`, function (err, result) {
+  database.query(`SELECT * FROM post ORDER BY id DESC`, function (err, result) {
     if (err) {
       return res.status(404).json({ errors: 'Aucune données trouvées.' })
     } else {
@@ -14,9 +15,9 @@ exports.getAllPosts = (req, res, next) => {
 }
 
 exports.getUserPosts = (req, res, next) => {
-  const userId = jwt.verify(req.cookies.session, 'SECRET_TOKEN').id
+  const userId = jwt.verify(req.cookies.session, process.env.SECRET_TOKEN).id
   const database = mysql.getDB()
-  database.query(`SELECT * FROM post WHERE user_id=?`, userId, function (err, result) {
+  database.query(`SELECT * FROM post WHERE user_id=? ORDER BY id DESC`, userId, function (err, result) {
     if (err) {
       return res.status(404).json({ errors: 'Aucune données trouvées.' })
     } else {
@@ -39,7 +40,7 @@ exports.getOnePost = (req, res, next) => {
 
 exports.createPost = (req, res, next) => {
   const data = JSON.parse(req.body.post)
-  const userId = jwt.verify(req.cookies.session, 'SECRET_TOKEN').id
+  const userId = jwt.verify(req.cookies.session, process.env.SECRET_TOKEN).id
   const newPost = {
     title: data.title,
     description: data.description,
@@ -51,7 +52,13 @@ exports.createPost = (req, res, next) => {
     if (err) {
       return res.status(400).json({ errors: 'Upload échoué' })
     } else {
-      return res.status(200).json(result)
+      database.query("SELECT * FROM post WHERE id=(SELECT MAX(id) FROM post)", function (err, result) {
+        if (err) {
+            return res.status(400).json(err)
+        } else {
+            return res.status(200).json(result)
+        }
+      })
     }
   })
 }
@@ -98,7 +105,13 @@ exports.updatePost = (req, res, next) => {
             if (err) {
               return res.status(400).json(err)
             } else {
-              return res.status(200).json(result)
+              database.query("SELECT * FROM post WHERE id=?", req.params.id, function (err, result) {
+                if (err) {
+                    return res.status(400).json(err)
+                } else {
+                    return res.status(200).json(result)
+                }
+            })
             }
           }) 
         })
@@ -113,7 +126,13 @@ exports.updatePost = (req, res, next) => {
       if (err) {
         return res.status(400).json(err)
       } else {
-        return res.status(200).json(result)
+        database.query("SELECT * FROM post WHERE id=?", req.params.id, function (err, result) {
+          if (err) {
+              return res.status(400).json(err)
+          } else {
+              return res.status(200).json(result)
+          }
+      })
       }
     })
   }

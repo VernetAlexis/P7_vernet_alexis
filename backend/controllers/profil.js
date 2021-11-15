@@ -1,9 +1,21 @@
 const mysql = require('../configs/database')
 const jwt = require('jsonwebtoken')
 const fs = require('fs')
+require('dotenv').config()
 
 exports.getProfil = (req, res, next) => {
-    const userId = jwt.verify(req.cookies.session, 'SECRET_TOKEN').id
+    const userId = jwt.verify(req.cookies.session, process.env.SECRET_TOKEN).id
+    const database = mysql.getDB()
+    database.query('SELECT * FROM user WHERE id=?', userId, (err, result) => {
+        if (err) {
+            return res.status(404).json({ errors: 'Utilisateur non trouvé' })
+        }
+        return res.status(200).json(result)
+    })
+}
+
+exports.getPostProfil = (req, res, next) => {
+    const userId = req.params.id
     const database = mysql.getDB()
     database.query('SELECT * FROM user WHERE id=?', userId, (err, result) => {
         if (err) {
@@ -14,7 +26,7 @@ exports.getProfil = (req, res, next) => {
 }
 
 exports.deleteProfil = (req, res, next) => {
-    const userId = jwt.verify(req.cookies.session, 'SECRET_TOKEN').id
+    const userId = jwt.verify(req.cookies.session, process.env.SECRET_TOKEN).id
     const database = mysql.getDB()
     database.query('DELETE FROM user WHERE id=?', userId, (err, result) => {
         if (err) {
@@ -47,7 +59,13 @@ exports.updateProfil = (req, res, next) => {
                         if (err) {
                             return res.status(400).json(err)
                         } else {
-                            return database.query("SELECT * FROM user WHERE id=?", req.params.id)
+                            database.query("SELECT * FROM user WHERE id=?", req.params.id, function (err, result) {
+                                if (err) {
+                                    return res.status(400).json(err)
+                                } else {
+                                    return res.status(200).json(result)
+                                }
+                            })
                         }
                     })
                 })
@@ -61,9 +79,16 @@ exports.updateProfil = (req, res, next) => {
         const sql = "UPDATE user SET username='" + newUsername + "', email='" + newEmail + "', firstname='" + newFirstname + "', lastname='" + newLastname + "' WHERE id='" + req.params.id + "'"
         database.query(sql, function (err, result) {
             if (err) {
+                console.log('erreur');
                 return res.status(400).json(err)
             } else {
-                return database.query("SELECT * FROM user WHERE id=?", req.params.id)
+                database.query("SELECT * FROM user WHERE id=?", req.params.id, function (err, result) {
+                    if (err) {
+                        return res.status(400).json(err)
+                    } else {
+                        return res.status(200).json(result)
+                    }
+                })
             }
         })
     }

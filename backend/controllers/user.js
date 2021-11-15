@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const mysql = require('../configs/database')
 const validator = require('validator')
 const bcrypt = require('bcrypt')
+require('dotenv').config()
 
 exports.login = (req, res, next) => {
     const database = mysql.getDB()
@@ -16,7 +17,7 @@ exports.login = (req, res, next) => {
                     if(!valid) {
                         return res.status(401).json({ errors: 'Mot de passe incorrect' })
                     }
-                    const token = jwt.sign( {id: result[0].id, username: result[0].username} , 'SECRET_TOKEN', {
+                    const token = jwt.sign( {id: result[0].id, username: result[0].username} , process.env.SECRET_TOKEN, {
                         expiresIn: '24h',
                     });
                     res.cookie("session", token);
@@ -40,12 +41,19 @@ exports.signup = (req, res, next) => {
                 database.query(`INSERT INTO user SET?`, newUser, (err, result) => {
                     if (err) {
                         return res.status(401).json({ errors: 'Adresse mail ou nom d\'utilisateur déjà utilisé' })
+                    } else {
+                        database.query("SELECT * FROM user WHERE email=?", req.body.email, function (err, result) {
+                            if (err) {
+                                return res.status(400).json(err)
+                            } else {
+                                const token = jwt.sign( {id: result[0].id, username: result[0].username} , process.env.SECRET_TOKEN, {
+                                    expiresIn: '24h',
+                                });
+                                res.cookie("session", token);
+                                res.status(201).json({ userId: result[0].id })
+                            }
+                        })
                     }
-                    const token = jwt.sign( {id : result.id} , 'SECRET_TOKEN', {
-                        expiresIn: '24h',
-                    });
-                    res.cookie("session", token);
-                    res.status(201).json({ message: 'Utilisateur créé' })
                 })
             })
             .catch(error => res.status(500).json({ error }))
@@ -55,7 +63,8 @@ exports.signup = (req, res, next) => {
 exports.currentUser = (req, res, next) => {
     if (req.cookies.session) {
         console.log('User connecté')
-        res.status(200).json({ message: 'User connecté' })
+        const userId = jwt.verify(req.cookies.session, process.env.SECRET_TOKEN).id;
+        res.status(200).json({ userId: userId })
     } else {
         console.log('Pas connecté')
         res.status(401).json({ error: 'Unauthorized' })

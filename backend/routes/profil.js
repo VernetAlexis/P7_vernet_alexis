@@ -6,6 +6,7 @@ const profilCtrl = require('../controllers/profil')
 const auth = require('../middleware/auth')
 
 router.get('/', auth, profilCtrl.getProfil)
+router.get('/:id', auth, profilCtrl.getPostProfil)
 router.delete('/', auth, profilCtrl.deleteProfil)
 router.put('/:id', auth, multer, profilCtrl.updateProfil)
 

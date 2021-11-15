@@ -44,7 +44,8 @@ export function useComments () {
                     'Content-Type': 'application/json'
                 }
             })
-            dispatch({ type: 'ADD_COMMENT', payload: comment })
+            console.log(comment[0]);
+            dispatch({ type: 'ADD_COMMENT', payload: comment[0] })
         },
         updateComment: async function (data, comment) {
             console.log(data);
@@ -57,7 +58,8 @@ export function useComments () {
                     'Content-Type': 'application/json'
                 }
             })
-            dispatch({ type: 'SET_COMMENT', payload: comment })
+            console.log(comment[0]);
+            dispatch({ type: 'SET_COMMENT', payload: comment[0] })
         },
         deleteComment: async function (comment) {
             await apiFetch('/api/comments/' + comment.id, {

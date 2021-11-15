@@ -34,7 +34,7 @@ export function LoginForm ({ onConnect }) {
     }
 
     return <form className="container mt-4" onSubmit={handleSubmit}>
-        <h2>Se connecter</h2>
+        <h2 className="text-center">Se connecter</h2>
         
         <div className="from-group">
             <label htmlFor="email">Adresse mail</label>
@@ -44,7 +44,9 @@ export function LoginForm ({ onConnect }) {
             <label htmlFor="password">Mot de passe</label>
             <input type="password" name="password" id="password" className="form-control" required/>
         </div>
-        <button disabled={loading} type="submit" className="btn btn-primary mt-3 mb-3">Se connecter</button>
+        <div className="text-center">
+            <button disabled={loading} type="submit" className="btn btn-primary mt-3 mb-3">Se connecter</button>   
+        </div>
         { error && <Alert>{error}</Alert> } 
     </form>
 }

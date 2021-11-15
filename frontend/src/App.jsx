@@ -18,7 +18,9 @@ export default function App() {
     return null
   }
 
+  console.log(user);
+
   return (
-    user ? <Site /> : <LoginSignup onConnect={setUser} />
+    user ? <Site currentUser={user} /> : <LoginSignup onConnect={setUser} />
   )
 }

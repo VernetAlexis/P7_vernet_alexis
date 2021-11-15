@@ -35,10 +35,20 @@ export function useProfil() {
             dispatch ({ type: 'DELETE_PROFIL', payload: profil })
         },
         updateProfil: async function (profil, data) {
+            console.log(data);
+            console.log(profil);
             profil = await apiFetch('/api/profil/' + profil.id ,{
                 method: 'put',
                 body: data
             })
+            if (!profil) {
+                return console.log('error');
+            }
+            dispatch ({ type: 'SET_PROFIL', payload: profil })
+        },
+        fetchPostProfil : async function (userId) {
+            dispatch({ type: 'FETCHING_PROFIL' })
+            const profil = await apiFetch('/api/profil/' + userId.userId)
             dispatch ({ type: 'SET_PROFIL', payload: profil })
         }
     }

@@ -1,9 +1,11 @@
 const mysql = require('../configs/database')
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
 
 exports.getPostComments = (req, res, next) => {
     const postId = req.params.id
     const database = mysql.getDB()
-    database.query(`SELECT * FROM comments WHERE post_id=?`, postId,  function (err, result) {
+    database.query(`SELECT * FROM comments WHERE post_id=? ORDER BY id DESC`, postId,  function (err, result) {
         if (err) {
         return res.status(404).json({ errors: 'Aucune données trouvées.' })
         } else {
@@ -14,20 +16,23 @@ exports.getPostComments = (req, res, next) => {
 
 exports.createComment = (req, res, next) => {
     const database = mysql.getDB()
-    console.log('body');
-    console.log(req.body.content);
-    console.log(req.params);
     const newComment = {
         content: req.body.content,
-        post_id: req.params.id
+        post_id: req.params.id,
+        user_id: jwt.verify(req.cookies.session, process.env.SECRET_TOKEN).id
     }
     database.query(`INSERT INTO comments SET?`, newComment, function (err, result) {
         if (err) {
             console.log('erreur');
             return res.status(400).json(err)
         } else {
-            console.log('bravo');
-            return res.status(201).json(result)
+            database.query("SELECT * FROM comments WHERE id=(SELECT MAX(id) FROM comments)", function (err, result) {
+                if (err) {
+                    return res.status(400).json(err)
+                } else {
+                    return res.status(200).json(result)
+                }
+            })
         }
     })
 }
@@ -41,7 +46,13 @@ exports.updateComment = (req, res, next) => {
             return res.status(400).json(err)
         } else {
             console.log('bravo');
-            return database.query("SELECT * FROM comments WHERE id=?", req.params.id)
+            database.query("SELECT * FROM comments WHERE id=?", req.params.id, function (err, result) {
+                if (err) {
+                    return res.status(400).json(err)
+                } else {
+                    return res.status(200).json(result)
+                }
+            })
         }
     }) 
 }
