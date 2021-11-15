@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `groupomania` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `groupomania`;
 -- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
 -- Host: localhost    Database: groupomania
@@ -28,10 +26,13 @@ CREATE TABLE `comments` (
   `id` int NOT NULL AUTO_INCREMENT,
   `content` varchar(1000) DEFAULT NULL,
   `post_id` int NOT NULL,
+  `user_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `post_id` (`post_id`),
-  CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +41,7 @@ CREATE TABLE `comments` (
 
 LOCK TABLES `comments` WRITE;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
-INSERT INTO `comments` VALUES (1,'C\'est un très beau goéland',1),(2,'WAOUH!!!!',1),(4,'trop drôle',2),(5,'j\'adore pokemon',4),(6,'c\'est cool',1);
+INSERT INTO `comments` VALUES (1,'C\'est un très beau goéland',1,16),(2,'WAOUH!!!!',1,16),(4,'trop drôle',2,16),(5,'j\'adore pokemon',4,16),(6,'c\'est cool',1,16),(10,'Magnifique!!',1,23),(25,'gsefvesr',4,16),(26,'dernier commentaire',1,16);
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -60,7 +61,7 @@ CREATE TABLE `post` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `post_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,7 +92,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,7 +101,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (16,'test1@mail.com','$2b$10$tiBtIlvj6udytEXXOaWFL.WvX5OPYlQt4lPbqkTOGzNSGJH2ePJk.','username','Alexis','Vernet','isaac.jpg1636855613582.jpg'),(23,'test2@mail.com','$2b$10$nn1cEoHt0iJSt1VyFMcrNu60zDlii5/aOGCvbj9MQi6trhzsJSyxS','username2',NULL,NULL,'defaultpp.png'),(26,'test4@mail.com','$2b$10$dlWlGHxQquWIjmJm7cW47e/X4J70Zr3GeE9XEXjv1qibtyBPgSO7u','username4',NULL,NULL,'defaultpp.png');
+INSERT INTO `user` VALUES (16,'test1@mail.com','$2b$10$tiBtIlvj6udytEXXOaWFL.WvX5OPYlQt4lPbqkTOGzNSGJH2ePJk.','username','Alexis','Vernet','isaac.jpg1636855613582.jpg'),(23,'test2@mail.com','$2b$10$nn1cEoHt0iJSt1VyFMcrNu60zDlii5/aOGCvbj9MQi6trhzsJSyxS','username2',NULL,NULL,'defaultpp.png'),(26,'test4@mail.com','$2b$10$dlWlGHxQquWIjmJm7cW47e/X4J70Zr3GeE9XEXjv1qibtyBPgSO7u','username4',NULL,NULL,'defaultpp.png'),(36,'test3@mail.com','$2b$10$x84.9JtQlj8A0OhVXc8DBumyiLEiqCAMpHBkY0iXqnrY9vQclVDY6','username3','','','isaac.jpg1636914370443.jpg'),(41,'test6@mail.com','$2b$10$9AISLa.RxnM51XP3FVe5IuaPU7GHsj8g7wc4s9BRwWCZhnvyEIk6e','username6',NULL,NULL,'defaultpp.png'),(44,'test7@mail.com','$2b$10$q7EdxeQCXx94VD7I8mxRPe2D7vvs.7T0UCLcaAmEOkOGl6p2WwJMi','username7',NULL,NULL,'defaultpp.png'),(45,'test8@mail.com','$2b$10$5mUEnVLBc0aCCXlXpTdHRu/tqfy/Ox2ozUWfNxu30QW6ktfG4aNk6','username8',NULL,NULL,'defaultpp.png');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -113,4 +114,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-14 16:04:30
+-- Dump completed on 2021-11-15 14:23:25
