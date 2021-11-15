@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `groupomania` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `groupomania`;
 -- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
 -- Host: localhost    Database: groupomania
@@ -32,7 +34,7 @@ CREATE TABLE `comments` (
   KEY `user_id` (`user_id`),
   CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) ON DELETE CASCADE,
   CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +43,7 @@ CREATE TABLE `comments` (
 
 LOCK TABLES `comments` WRITE;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
-INSERT INTO `comments` VALUES (1,'C\'est un très beau goéland',1,16),(2,'WAOUH!!!!',1,16),(4,'trop drôle',2,16),(5,'j\'adore pokemon',4,16),(6,'c\'est cool',1,16),(10,'Magnifique!!',1,23),(25,'gsefvesr',4,16),(26,'dernier commentaire',1,16);
+INSERT INTO `comments` VALUES (31,'Trop drôle !',71,53),(32,'Trop bien ! J\'adore pokémon.',73,52),(33,'Il est trop mignon',72,52);
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -61,7 +63,7 @@ CREATE TABLE `post` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `post_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +72,7 @@ CREATE TABLE `post` (
 
 LOCK TABLES `post` WRITE;
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
-INSERT INTO `post` VALUES (1,'Goéland','Portrait photo d\'un goéland','goeland.jpg1636786232540.jpg',16),(2,'Nyan Cat','Chat-tartine dans l\'espace','nyan_cat.gif',16),(3,'Tétard','Photo d\'un tétard au microscope','tetard.jpg',16),(4,'Pokémon','Pikachu & Evoli','pokemon.gif',23),(5,'Piment','Piment rouge','piment.jpg',23),(40,'Ours','Un ours qui fait coucou !!!! (trop pipou)','ours_qui_fait_salut.jpeg1636773762118.jpg',16);
+INSERT INTO `post` VALUES (69,'Tortue','Une petite tortue.','tortue.jpg1636988504911.jpg',52),(70,'Goéland','Portrait photo d\'un goéland','goeland.jpg1636988532697.jpg',52),(71,'Nyan Cat','Nyan Cat','nyan_cat.gif1636988580628.gif',52),(72,'Ours','Un ours qui fait coucou !','ours_qui_fait_salut.jpeg1636988646325.jpg',53),(73,'Pokémon','Pikachu et Evoli','pokemon.gif1636988675052.gif',53);
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -92,7 +94,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,7 +103,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (16,'test1@mail.com','$2b$10$tiBtIlvj6udytEXXOaWFL.WvX5OPYlQt4lPbqkTOGzNSGJH2ePJk.','username','Alexis','Vernet','isaac.jpg1636855613582.jpg'),(23,'test2@mail.com','$2b$10$nn1cEoHt0iJSt1VyFMcrNu60zDlii5/aOGCvbj9MQi6trhzsJSyxS','username2',NULL,NULL,'defaultpp.png'),(26,'test4@mail.com','$2b$10$dlWlGHxQquWIjmJm7cW47e/X4J70Zr3GeE9XEXjv1qibtyBPgSO7u','username4',NULL,NULL,'defaultpp.png'),(36,'test3@mail.com','$2b$10$x84.9JtQlj8A0OhVXc8DBumyiLEiqCAMpHBkY0iXqnrY9vQclVDY6','username3','','','isaac.jpg1636914370443.jpg'),(41,'test6@mail.com','$2b$10$9AISLa.RxnM51XP3FVe5IuaPU7GHsj8g7wc4s9BRwWCZhnvyEIk6e','username6',NULL,NULL,'defaultpp.png'),(44,'test7@mail.com','$2b$10$q7EdxeQCXx94VD7I8mxRPe2D7vvs.7T0UCLcaAmEOkOGl6p2WwJMi','username7',NULL,NULL,'defaultpp.png'),(45,'test8@mail.com','$2b$10$5mUEnVLBc0aCCXlXpTdHRu/tqfy/Ox2ozUWfNxu30QW6ktfG4aNk6','username8',NULL,NULL,'defaultpp.png');
+INSERT INTO `user` VALUES (52,'test1@mail.com','$2b$10$szgBWC9XPZEDuMoyMam2Fec.xj6EpifP6coRHlfmXHeqI0RPaHld2','username','Alexis','Vernet','isaac.jpg1636988487480.jpg'),(53,'test2@mail.com','$2b$10$tqNoZJO8Q6p2.6frmIFlu.I21BXAiXaY9N/fl6Wx5j3yu2vKlTmai','username2',NULL,NULL,'defaultpp.png');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -114,4 +116,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-15 14:23:25
+-- Dump completed on 2021-11-15 16:10:48

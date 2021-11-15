@@ -53,7 +53,7 @@ export function usePosts() {
                 body: data,
             })
             console.log(post);
-            dispatch({ type: 'ADD_POST', payload: post })
+            dispatch({ type: 'ADD_POST', payload: post[0] })
         },
         deletePost: async function (post) {
             await apiFetch('/api/post/' + post.id, {
