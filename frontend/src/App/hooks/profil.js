@@ -29,8 +29,14 @@ export function useProfil() {
             dispatch({ type: 'SET_PROFIL', payload: profil })
         },
         deleteProfil: async function (profil) {
+            console.log(profil);
             await apiFetch('/api/profil', {
-                method: 'delete'
+                method: 'delete',
+                body: profil,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
             })
             dispatch ({ type: 'DELETE_PROFIL', payload: profil })
         },

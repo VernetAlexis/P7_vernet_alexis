@@ -68,7 +68,7 @@ export function UserProfil ({ profil, onDelete, onUpdate }) {
                     </div>
                     <div className="text-center">
                         <button className="btn btn-primary my-4">Valider</button><br />
-                        <button className="btn btn-danger mb-4" onClick={() => onDelete(profil)}>Supprimer mon compte</button>
+                        <button className="btn btn-danger mb-4" onClick={() => onDelete(profil[0])}>Supprimer mon compte</button>
                     </div>
                 </div>
             </form>

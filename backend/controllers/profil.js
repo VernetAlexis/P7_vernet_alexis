@@ -26,7 +26,7 @@ exports.getPostProfil = (req, res, next) => {
 }
 
 exports.deleteProfil = (req, res, next) => {
-    const userId = jwt.verify(req.cookies.session, process.env.SECRET_TOKEN).id
+    const userId = req.body.id
     const database = mysql.getDB()
     database.query('DELETE FROM user WHERE id=?', userId, (err, result) => {
         if (err) {

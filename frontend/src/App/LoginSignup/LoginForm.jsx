@@ -22,6 +22,7 @@ export function LoginForm ({ onConnect }) {
                     'Content-Type': 'application/json'
                 }
             })
+            console.log(user);
             onConnect(user)
         } catch (e) {
             if (e instanceof ApiErrors) {

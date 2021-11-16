@@ -28,7 +28,7 @@ function PostDetail ({ post, onDelete, onClick, currentUser }) {
     const [editable, setEditable] = useState(false)
 
     useEffect(function () {
-        if (currentUser.userId === post.user_id) {
+        if ((currentUser.userId === post.user_id) || (currentUser.username === 'admin')) {
             setEditable(true)
         }
     }, [])

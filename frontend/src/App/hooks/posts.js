@@ -35,6 +35,7 @@ export function usePosts() {
         fetchAllPosts: async function () {
             dispatch({ type: 'FETCHING_POSTS' })
             const posts = await apiFetch('/api/post/')
+            console.log(posts);
             dispatch({ type: 'SET_POSTS', payload: posts })
         },
         fetchUserPosts: async function () {

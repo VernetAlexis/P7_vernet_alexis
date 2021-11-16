@@ -34,7 +34,7 @@ CREATE TABLE `comments` (
   KEY `user_id` (`user_id`),
   CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) ON DELETE CASCADE,
   CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +43,7 @@ CREATE TABLE `comments` (
 
 LOCK TABLES `comments` WRITE;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
-INSERT INTO `comments` VALUES (31,'Trop drôle !',71,53),(32,'Trop bien ! J\'adore pokémon.',73,52),(33,'Il est trop mignon',72,52);
+INSERT INTO `comments` VALUES (39,'Trop drôle',108,80),(40,'Jolie tortue.',107,80),(42,'Trop cool ! J\'adore pokémon.',112,78);
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -63,7 +63,7 @@ CREATE TABLE `post` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `post_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,7 +72,7 @@ CREATE TABLE `post` (
 
 LOCK TABLES `post` WRITE;
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
-INSERT INTO `post` VALUES (69,'Tortue','Une petite tortue.','tortue.jpg1636988504911.jpg',52),(70,'Goéland','Portrait photo d\'un goéland','goeland.jpg1636988532697.jpg',52),(71,'Nyan Cat','Nyan Cat','nyan_cat.gif1636988580628.gif',52),(72,'Ours','Un ours qui fait coucou !','ours_qui_fait_salut.jpeg1636988646325.jpg',53),(73,'Pokémon','Pikachu et Evoli','pokemon.gif1636988675052.gif',53);
+INSERT INTO `post` VALUES (106,'Goéland','Portrait photo d\'un goéland','goeland.jpg1637029827383.jpg',78),(107,'Tortue','Une petite tortue.','tortue.jpg1637029919123.jpg',78),(108,'Nyan Cat','Nyan Cat !','nyan_cat.gif1637029948655.gif',78),(111,'Ours','Un ours qui fait coucou !','ours_qui_fait_salut.jpeg1637030512989.jpg',80),(112,'Pokémon','Pikachu et Evoli','pokemon.gif1637030529976.gif',80);
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,7 +94,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,7 +103,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (52,'test1@mail.com','$2b$10$szgBWC9XPZEDuMoyMam2Fec.xj6EpifP6coRHlfmXHeqI0RPaHld2','username','Alexis','Vernet','isaac.jpg1636988487480.jpg'),(53,'test2@mail.com','$2b$10$tqNoZJO8Q6p2.6frmIFlu.I21BXAiXaY9N/fl6Wx5j3yu2vKlTmai','username2',NULL,NULL,'defaultpp.png');
+INSERT INTO `user` VALUES (62,'admin@admin','$2b$10$FGblB5pBBsTZJ5GbcMVtSuoM6q.5Wa/KdbAnf7IXXe9T4KzBPKL8.','admin',NULL,NULL,'defaultpp.png'),(78,'test1@mail.com','$2b$10$.ykWhUCFZoS10JCn8dpcyeHg8i4zsITtrIrpu/04cAmL0skvVfLzi','username','Alexis','Vernet','isaac.jpg1637029140627.jpg'),(80,'test2@mail.com','$2b$10$bc5rjj6BqTUTFlduFTOKGeJwVsHl96u/yPsdxcAtYwgHFixTTRlBq','username2',NULL,NULL,'defaultpp.png');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -116,4 +116,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-15 16:10:48
+-- Dump completed on 2021-11-16  4:18:43

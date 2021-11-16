@@ -40,10 +40,10 @@ function NavBar ({ currentPage, onClick }) {
             <a href='#login' className="navbar-brand ms-4" onClick={() => onClick('login')}>
                 <img src="http://localhost:3000/logo.png" alt="" height="30" />
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarToggler">
+            <div className="collapse navbar-collapse" id="navbarToggler">
                 <ul className="navbar-nav mr-auto">
                     <li className="nav-item">
                         <a href="#signup" className={navClass('signup')} onClick={() => onClick('signup')}>S'inscrire</a>

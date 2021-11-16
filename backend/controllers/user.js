@@ -21,7 +21,7 @@ exports.login = (req, res, next) => {
                         expiresIn: '24h',
                     });
                     res.cookie("session", token);
-                    res.status(200).json({ userId: result[0].id })
+                    res.status(200).json({ userId: result[0].id, username: result[0].username })
                 })
                 .catch(error => res.status(400).json({ error }))
         } else {
@@ -50,7 +50,7 @@ exports.signup = (req, res, next) => {
                                     expiresIn: '24h',
                                 });
                                 res.cookie("session", token);
-                                res.status(201).json({ userId: result[0].id })
+                                res.status(201).json({ userId: result[0].id, username: result[0].username })
                             }
                         })
                     }
@@ -64,7 +64,8 @@ exports.currentUser = (req, res, next) => {
     if (req.cookies.session) {
         console.log('User connecté')
         const userId = jwt.verify(req.cookies.session, process.env.SECRET_TOKEN).id;
-        res.status(200).json({ userId: userId })
+        const username = jwt.verify(req.cookies.session, process.env.SECRET_TOKEN).username;
+        res.status(200).json({ userId: userId, username: username })
     } else {
         console.log('Pas connecté')
         res.status(401).json({ error: 'Unauthorized' })
@@ -74,4 +75,15 @@ exports.currentUser = (req, res, next) => {
 exports.logout = (req, res, next) => {
     res.clearCookie("session")
     res.status(200).json({ message: 'Utilisateur deconnecté' })
+}
+
+exports.getAllUsers = (req, res, next) => {
+    const database = mysql.getDB()
+    database.query(`SELECT * FROM user`, function (err, result) {
+        if (err) {
+            return res.status(404).json({ errors: 'Aucune données trouvées.' })
+        } else {
+            return res.status(200).json(result)
+        }
+    })
 }
