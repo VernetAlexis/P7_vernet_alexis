@@ -34,7 +34,7 @@ export function SignupForm ({ onConnect }) {
     }
 
     return <form className="container mt-4" onSubmit={handleSubmit}>
-        <h2 className="text-center">S'inscrire</h2>
+        <h1 className="text-center">S'inscrire</h1>
         
         <div className="from-group">
             <label htmlFor="email">Adresse mail</label>

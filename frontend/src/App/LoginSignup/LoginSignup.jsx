@@ -37,8 +37,8 @@ function NavBar ({ currentPage, onClick }) {
 
     return <nav className="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
         <div className="container-fluid">
-            <a href='#login' className="navbar-brand ms-4" onClick={() => onClick('login')}>
-                <img src="http://localhost:3000/logo.png" alt="" height="30" />
+            <a href='#' className="navbar-brand ms-4" onClick={() => onClick('login')}>
+                <img src="http://localhost:3000/logo.png" alt="Logo de groupomania" height="30" />
             </a>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
@@ -46,10 +46,10 @@ function NavBar ({ currentPage, onClick }) {
             <div className="collapse navbar-collapse" id="navbarToggler">
                 <ul className="navbar-nav mr-auto">
                     <li className="nav-item">
-                        <a href="#signup" className={navClass('signup')} onClick={() => onClick('signup')}>S'inscrire</a>
+                        <a href="#" className={navClass('signup')} onClick={() => onClick('signup')}>S'inscrire</a>
                     </li>
                     <li className="nav-item">
-                        <a href="#login" className={navClass('login')} onClick={() => onClick('login')}>Se connecter</a>
+                        <a href="#" className={navClass('login')} onClick={() => onClick('login')}>Se connecter</a>
                     </li>
                 </ul>
             </div>

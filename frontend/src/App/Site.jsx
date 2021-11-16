@@ -137,8 +137,8 @@ function NavBar ({ currentPage, onClick, onDisconnect, adminMode }) {
 
     return adminMode ? <nav className="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
     <div className="container-fluid">
-        <a href='#allPost' className="navbar-brand ms-4" onClick={() => onClick('allPost')}>
-            <img src="http://localhost:3000/logo.png" alt="" height="30" />
+        <a href='#' className="navbar-brand ms-4" onClick={() => onClick('allPost')}>
+            <img src="http://localhost:3000/logo.png" alt="Logo de Groupomania" height="30" />
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -146,16 +146,16 @@ function NavBar ({ currentPage, onClick, onDisconnect, adminMode }) {
         <div class="collapse navbar-collapse" id="navbarToggler">
             <ul className="navbar-nav me-auto">
                 <li className="nav-item">
-                    <a href="#allPost" className={navClass('allPost')} onClick={() => onClick('allPost')}>Tous les Post</a>
+                    <a href="#" className={navClass('allPost')} onClick={() => onClick('allPost')}>Tous les Post</a>
                 </li>
                 <li className="nav-item">
-                    <a href="#allUsers" className={navClass('allUsers')} onClick={() => onClick('allUsers')}>Tous les utilisateurs</a>
+                    <a href="#" className={navClass('allUsers')} onClick={() => onClick('allUsers')}>Tous les utilisateurs</a>
                 </li>
                 <li className="nav-item">
-                    <a href="#myProfil" className={navClass('myProfil')} onClick={() => onClick('myProfil')}>Mon Profil</a>
+                    <a href="#" className={navClass('myProfil')} onClick={() => onClick('myProfil')}>Mon Profil</a>
                 </li>
             </ul>
-            <button  className="btn btn-danger btn-outline-light me-3 danger" onClick={onDisconnect}>
+            <button  className="btn btn-danger me-3 danger text-white" onClick={onDisconnect}>
                 Déconnexion
             </button>
         </div>
@@ -163,8 +163,8 @@ function NavBar ({ currentPage, onClick, onDisconnect, adminMode }) {
     </nav> :
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
         <div className="container-fluid">
-            <a href='#allPost' className="navbar-brand ms-4" onClick={() => onClick('allPost')}>
-                <img src="http://localhost:3000/logo.png" alt="" height="30" />
+            <a href="#" className="navbar-brand ms-4" onClick={() => onClick('allPost')}>
+                <img src="http://localhost:3000/logo.png" alt="Logo de Groupomania" height="30" />
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -172,21 +172,21 @@ function NavBar ({ currentPage, onClick, onDisconnect, adminMode }) {
             <div class="collapse navbar-collapse" id="navbarToggler">
                 <ul className="navbar-nav me-auto">
                     <li className="nav-item">
-                        <a href="#allPost" className={navClass('allPost')} onClick={() => onClick('allPost')}>Tous les Post</a>
+                        <a href="#" className={navClass('allPost')} onClick={() => onClick('allPost')}>Tous les Post</a>
                     </li>
                     <li className="nav-item">
-                        <a href="#userPost" className={navClass('userPost')} onClick={() => onClick('userPost')}>Mes post</a>
+                        <a href="#" className={navClass('userPost')} onClick={() => onClick('userPost')}>Mes post</a>
                     </li>
                     <li className="nav-item">
-                        <a href="#myProfil" className={navClass('myProfil')} onClick={() => onClick('myProfil')}>Mon Profil</a>
+                        <a href="#" className={navClass('myProfil')} onClick={() => onClick('myProfil')}>Mon Profil</a>
                     </li>
                 </ul>
-                <a href='#createPost'>
-                    <button  className="btn btn-outline-light me-3" onClick={() => onClick('createPost')}>
+                <a href="#">
+                    <button className="btn btn-primary border border-white me-3 text-white" onClick={() => onClick('createPost')}>
                         Créer un nouveau post
                     </button>
                 </a>
-                <button  className="btn btn-danger btn-outline-light me-3 danger" onClick={onDisconnect}>
+                <button className="btn btn-danger me-3 danger text-white" onClick={onDisconnect}>
                     Déconnexion
                 </button>
             </div>

@@ -34,6 +34,7 @@ function PostForm ({ onSubmit, post = {}, required }) {
     }
 
     return <div className="col-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4 m-auto border shadow-lg p-3 mb-5 bg-body rounded">
+        <h1 className="text-center">Créer un post</h1>
         <form className="row" onSubmit={handleSubmit}>
             <div className="from-group">
                 <label htmlFor="title">Titre</label>

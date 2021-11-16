@@ -35,7 +35,7 @@ export function LoginForm ({ onConnect }) {
     }
 
     return <form className="container mt-4" onSubmit={handleSubmit}>
-        <h2 className="text-center">Se connecter</h2>
+        <h1 className="text-center">Se connecter</h1>
         
         <div className="from-group">
             <label htmlFor="email">Adresse mail</label>
